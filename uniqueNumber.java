@@ -17,7 +17,8 @@ class uniqueNumber
                 num[a]=temp%10;
                 temp/=10;
             }
-            for(int t=1;t<=len;t++)
+            //System.out.println(Arrays.toString(num));
+            for(int t=0;t<len;t++)
             {for(int j=0;j<len-1;j++)
             {
                 for(int k=j+1;k<len;k++)
@@ -25,24 +26,46 @@ class uniqueNumber
                     if(num[j]==num[k])
                     {
                         if(num[k]==9)
-                        { num[k-1]++;   num[k]=0;   break;}                    
+                        { nine(num, k); }                    
                         else
                         {num[k]++;}
                     }
                 }
             }}
+            //System.out.println(Arrays.toString(num));
             temp=0;
             for(int j=0;j<len;j++)
-            temp=temp*10+num[j];
+            {temp=temp*10+num[j];}
+            //System.out.println(temp);
+            i=temp+1;
+            if(temp>upper) break;
             System.out.println(temp);
             f++; 
         }
         return f;
-    }
+    }    
+    protected static void nine(int num[], int k)
+    { 
+        int temp=0;
+        for(int j=0;j<len;j++)
+        {temp=temp*10+num[j];}
+        temp+=(10*(len-1-k));
+        for(int j=len-1;j>=0;j--)
+        {
+            num[j]=temp%10;
+            temp/=10;
+        }
+        System.out.println("nine"+Arrays.toString(num));
     }
    public static void main(String args[])
    {
-        
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter the lower limit:");
+        int l=sc.nextInt();
+        System.out.println("Enter the upper limit:");
+        int u=sc.nextInt();
+        int f=uniqueNumber.unique(l,u);
+        System.out.println("FREQUENCY:  "+f);
+        sc.close();
    }
-
 }
