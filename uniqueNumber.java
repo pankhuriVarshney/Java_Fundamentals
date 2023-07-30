@@ -12,12 +12,12 @@ class uniqueNumber
             len=Integer.toString(i).length();
             num=new int[len];
             int temp=i;
+            boolean flag=true;
             for(int a=len-1;a>=0;a--)
             {
                 num[a]=temp%10;
                 temp/=10;
             }
-            //System.out.println(Arrays.toString(num));
             for(int t=0;t<len;t++)
             {for(int j=0;j<len-1;j++)
             {
@@ -26,26 +26,31 @@ class uniqueNumber
                     if(num[j]==num[k])
                     {
                         if(num[k]==9)
-                        { nine(num, k); }                    
+                        { flag=nine(k);
+                            if(!flag) break; }                    
                         else
                         {num[k]++;}
                     }
                 }
             }}
-            //System.out.println(Arrays.toString(num));
             temp=0;
             for(int j=0;j<len;j++)
             {temp=temp*10+num[j];}
-            //System.out.println(temp);
             i=temp+1;
             if(temp>upper) break;
+            else if(!flag) continue;
             System.out.println(temp);
             f++; 
         }
         return f;
     }    
-    protected static void nine(int num[], int k)
+    protected static boolean nine(int k)
     { 
+        boolean flag=false;
+        for(int j=0;j<len;j++)
+        if(num[j]!=9) {flag=true; break;}
+        if(flag)
+        {
         int temp=0;
         for(int j=0;j<len;j++)
         {temp=temp*10+num[j];}
@@ -55,14 +60,16 @@ class uniqueNumber
             num[j]=temp%10;
             temp/=10;
         }
-        System.out.println("nine"+Arrays.toString(num));
+        return true;
+        }
+        else return false;
     }
    public static void main(String args[])
    {
         Scanner sc=new Scanner(System.in);
-        System.out.println("Enter the lower limit:");
+        System.out.print("Enter the lower limit: ");
         int l=sc.nextInt();
-        System.out.println("Enter the upper limit:");
+        System.out.print("Enter the upper limit: ");
         int u=sc.nextInt();
         int f=uniqueNumber.unique(l,u);
         System.out.println("FREQUENCY:  "+f);
