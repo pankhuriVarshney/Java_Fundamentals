@@ -109,5 +109,6 @@ class sum extends link
         System.out.println("LIST 1 + LIST 2: ");
         ans=add();
         print(ans);
+        sc.close();
     }
 }
